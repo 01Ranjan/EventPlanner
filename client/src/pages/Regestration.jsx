@@ -4,14 +4,39 @@ import lod from "../assets/bg-homepage.jpg";
 import { Link } from "react-router-dom";
 
 const WeddingRegister = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+
+    const [Registerdata, setRegesterData]=useState(
+        {
+            fullname:"",
+            email:"",
+            phone:"",
+            password:""
+        }
+    )
+
+    const handleChange=(e)=>{
+        const{name,value}=e.target;
+        setRegesterData((previousData)=>({...previousData,[name]:value}))
+    }
+ 
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Handle registration logic here
+    console.log(Registerdata);
+    setRegesterData(
+         {
+            fullname:"",
+            email:"",
+            phone:"",
+            password:""
+        }
+    )
+
+   
+ 
+
+    
+    
   };
 
   return (
@@ -23,7 +48,7 @@ const WeddingRegister = () => {
     >
       <div className="mt-25 mr-22 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-rose-700 font-serif tracking-wide">
+          <h2 className="text-4xl font-bold text-white not-last: font-serif tracking-wide">
             Register
           </h2>
            
@@ -43,9 +68,10 @@ const WeddingRegister = () => {
               <input
                 type="text"
                 id="name"
+                name="fullname"
                 required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={Registerdata.fullname}
+                onChange={handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your full name"
               />
@@ -68,9 +94,10 @@ const WeddingRegister = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={Registerdata.email}
+                onChange={handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your email"
               />
@@ -93,9 +120,10 @@ const WeddingRegister = () => {
               <input
                 type="tel"
                 id="phone"
+                name="phone"
                 required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={Registerdata.phone}
+                onChange={ handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your phone number"
               />
@@ -118,9 +146,10 @@ const WeddingRegister = () => {
               <input
                 type="password"
                 id="password"
+                name="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={Registerdata.password}
+                onChange={handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-rose-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Create a password"
               />
@@ -133,10 +162,10 @@ const WeddingRegister = () => {
           <div className="flex items-center">
             <input
               id="terms"
-              name="terms"
+               name="terms"
               type="checkbox"
               className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-              required
+              
             />
             <label
               htmlFor="terms"

@@ -91,9 +91,9 @@ const WeddingLogin = () => {
             </div>
 
             <div className="text-sm">
-              <l className="font-medium text-white hover:text-rose-500">
+              <p className="font-medium text-white hover:text-rose-500">
                 Forgot password?
-              </l>
+              </p>
             </div>
           </div>
 

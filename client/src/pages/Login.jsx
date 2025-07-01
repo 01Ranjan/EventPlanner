@@ -19,12 +19,10 @@ const WeddingLogin = () => {
     >
       <div className="mt-25 mr-22 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-rose-700 font-serif tracking-wide">
+          <h2 className="text-4xl font-bold text-white font-serif tracking-wide">
             Login
           </h2>
-          <p className="text-white mt-2 font-medium">
-            June 12, 2025 • The Leela Palace, Udaipur
-          </p>
+          
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">

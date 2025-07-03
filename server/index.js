@@ -1,20 +1,27 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
 import express from 'express'
+import AuthRouter from "./src/routes/authrouter.js"
+import connectDb from "./src/config/db.js"
 
 const app=express();
 
+app.use("/auth",AuthRouter)
+
 
 app.get("/",(req,res)=>{
-    res.json({message:"mai hu server"})
+    res.json({message:"index tak pauch gaya hu"})
   
 })
 
-app.post("/regester",(req,res)=>{
-    res.send("user regester sucessfull")
+ 
+ 
+let port =process.env.PORT || 5000
+
+app.listen(port,()=>{
+    console.log("server started at port", port);
     
 })
 
-
-app.listen(5000,()=>{
-    console.log("server started at port 5000 pe");
-    
-})
+connectDb();

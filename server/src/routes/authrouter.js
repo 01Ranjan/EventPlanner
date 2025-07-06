@@ -1,13 +1,14 @@
 import express from "express"
 
-import { Regester,Login,Logout } from "../controllers/authcontroller.js";
-import { Samp, Samp1, Samp2 } from "../middlewares/authmiddleware.js";
+import { RegesterUser,LoginUser,LogoutUser,UpdateUser } from "../controllers/authcontroller.js";
+ 
 
-const router =express.Router();
+const router =express.Router();//express ek class hai aur router ek object hai
 
 
-router.post("/regester",Samp,Regester)
-router.post("/login",Samp1,Samp2,Login)
-router.post("/logout",Logout);
+router.post("/regester",RegesterUser)
+router.post("/login",LoginUser)
+router.get("/logout",LogoutUser)
+router.put("/update",UpdateUser)
 
 export default router;

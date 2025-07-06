@@ -8,12 +8,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ranjan": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
-    "mongoose": "^8.16.1"
+    "mongoose": "^8.16.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

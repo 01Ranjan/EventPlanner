@@ -1,5 +1,6 @@
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
+import genToken from "../utils/auth.js";
 
 export const RegesterUser = async (req, res, next) => {
   try {
@@ -54,7 +55,11 @@ export const LoginUser =async (req, res, next) => {
       error.statusCode = 401;
       return next(error);
     }
+      genToken(user._id,res)
 
+
+
+      
     res.status(200).json({message:`welcome back ${user.fullName}`})
   } catch (error) {
     next(error)

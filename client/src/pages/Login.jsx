@@ -1,23 +1,47 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import lod from "../assets/bg-homepage.jpg";
+import{toast} from "react-hot-toast";
+import api from "../config/api";
 
 const WeddingLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate=useNavigate()
+   const [LoginData,setLoginData]=useState({
+    email:"",
+    password:""
+   });
 
-  const handleLogin = (e) => {
+    const handleChange=(e)=>{
+        const{name,value}=e.target;
+        setLoginData((previousData)=>({...previousData,[name]:value}))
+    }
+
+  const handleLogin =async (e) => {
     e.preventDefault();
+    
+        console.log(LoginData);
+        
+     try {
+      const res = await api.post("/auth/login",LoginData);
+       
+      toast.success(res.data.message)
+       
+      navigate("/")
+     } catch (error) {
+        toast.error(error.message)
+     }
+
+
   };
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative overflow-hidden w-420"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative overflow-hidden w-380"
       style={{
         backgroundImage: `url(${lod})`,
       }}
     >
-      <div className="mt-25 mr-22 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
+      <div className="mt-25 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-white font-serif tracking-wide">
             Login
@@ -38,6 +62,9 @@ const WeddingLogin = () => {
             <div className="relative">
               <input
                 type="email"
+                name="email"
+                value={LoginData.email}
+                onChange={handleChange}
                 id="email"
                 required
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
@@ -62,6 +89,9 @@ const WeddingLogin = () => {
               <input
                 type="password"
                 id="password"
+                name="password"
+                value={LoginData.password}
+                onChange={handleChange}
                 required
                 className="w-full px-5 py-3 text-white border-2 border-rose-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your password"

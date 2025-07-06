@@ -4,16 +4,18 @@ import Navbar from './components/navbar'
 import Hero from './pages/hero.jsx'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import WeddingLogin from './pages/Login.jsx'
+import UserDasboard from './pages/UserDasboard.jsx'
+import WeddingRegister from './pages/Regestration.jsx'
 
-import WeddingRegister from './pages/regestration.jsx'
- 
+
+ import {Toaster} from "react-hot-toast"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <BrowserRouter>
-      
+      <Toaster />
     <Navbar/>
 
     
@@ -22,6 +24,7 @@ function App() {
       <Route  path='/login' element={<WeddingLogin />}/>
       <Route  path='/' element={<Hero />}/>
       <Route  path='/registeration' element={<WeddingRegister/>}/>
+      <Route  path='/userdasboard' element={<UserDasboard/>}/>
 
     </Routes>
     </BrowserRouter>

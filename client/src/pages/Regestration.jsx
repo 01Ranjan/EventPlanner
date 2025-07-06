@@ -1,61 +1,63 @@
 import React, { useState } from "react";
-
+import api from "../config/api";
 import lod from "../assets/bg-homepage.jpg";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const WeddingRegister = () => {
-
-    const [Registerdata, setRegesterData]=useState(
-        {
-            fullname:"",
-            email:"",
-            phone:"",
-            password:""
-        }
-    )
-
-    const handleChange=(e)=>{
-        const{name,value}=e.target;
-        setRegesterData((previousData)=>({...previousData,[name]:value}))
-    }
+  const navigate = useNavigate();
+  const [Registerdata, setRegesterData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegesterData((previousData) => ({ ...previousData, [name]: value }));
+  };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
+
     e.preventDefault();
-    console.log(Registerdata);
-    setRegesterData(
-         {
-            fullname:"",
-            email:"",
-            phone:"",
-            password:""
-        }
-    )
 
-   
- 
+    try {
+      const res = await api.post("/auth/regester", Registerdata);
 
+      toast.success(res.data.message);
+
+      
+
+       navigate("/login")
+    } catch (error) {
+      toast.error(error.message);
+    }
     
-    
+    setRegesterData({
+      fullName: "",
+      email: "",
+      phone: "",
+      password: "",
+    });
   };
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative overflow-hidden w-420"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative overflow-hidden w-380"
       style={{
         backgroundImage: `url(${lod})`,
       }}
     >
-      <div className="mt-25 mr-22 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
-        <div className="text-center mb-8">
+      <div className="mt-20 md-4 relative bg-transparent backdrop-blur-sm p-8 rounded-3xl shadow-xl w-full max-w-md  border-2 border-rose-300 transform transition-all hover:scale-[1.01]">
+        <div className="text-center ">
           <h2 className="text-4xl font-bold text-white not-last: font-serif tracking-wide">
             Register
           </h2>
-           
         </div>
 
-        <form onSubmit={handleRegister} className="space-y-6">
-          <div className="space-y-3">
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div className="space-y-2">
             <div className="flex items-center">
               <label
                 htmlFor="name"
@@ -68,9 +70,9 @@ const WeddingRegister = () => {
               <input
                 type="text"
                 id="name"
-                name="fullname"
+                name="fullName"
                 required
-                value={Registerdata.fullname}
+                value={Registerdata.fullName}
                 onChange={handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your full name"
@@ -123,7 +125,7 @@ const WeddingRegister = () => {
                 name="phone"
                 required
                 value={Registerdata.phone}
-                onChange={ handleChange}
+                onChange={handleChange}
                 className="w-full px-5 py-3 text-white border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all placeholder-white"
                 placeholder="Enter your phone number"
               />
@@ -162,15 +164,11 @@ const WeddingRegister = () => {
           <div className="flex items-center">
             <input
               id="terms"
-               name="terms"
+              name="terms"
               type="checkbox"
               className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-              
             />
-            <label
-              htmlFor="terms"
-              className="ml-2 block text-sm text-rose-700"
-            >
+            <label htmlFor="terms" className="ml-2 block text-sm text-rose-700">
               I agree to the terms and conditions
             </label>
           </div>
@@ -186,7 +184,10 @@ const WeddingRegister = () => {
         <div className="mt-6 text-center text-sm">
           <p className="text-rose-700">
             Already have an account?{" "}
-            <Link   to={"/login"} className="font-medium text-white hover:text-rose-500">
+            <Link
+              to={"/login"}
+              className="font-medium text-white hover:text-rose-500"
+            >
               Login
             </Link>
           </p>

@@ -15,7 +15,7 @@ function Navbar(){
                 </ul>
             </div>
             <div>
-                <img src={logo} alt="" className='w-40' />
+                <img src={logo} alt="" className='w-20' />
             </div>
             <div>
                 <ul className='flex text-center gap-10 mt-8.5'>

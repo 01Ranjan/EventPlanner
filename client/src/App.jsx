@@ -1,34 +1,32 @@
-import { useState } from 'react'
- 
-import Navbar from './components/navbar'
-import Hero from './pages/hero.jsx'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import WeddingLogin from './pages/Login.jsx'
-import UserDasboard from './pages/UserDasboard.jsx'
-import WeddingRegister from './pages/Regestration.jsx'
+import React from "react";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { Toaster } from "react-hot-toast";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import AdminPanel from "./pages/Adminpanel";
+import ContactUs from "./pages/ContactUs";
 
-
- import {Toaster} from "react-hot-toast"
-
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <BrowserRouter>
-      <Toaster />
-    <Navbar/>
+    <>
+      <BrowserRouter>
+        <Toaster />
+        <Navbar />
 
-    
-    <Routes>
-      
-      <Route  path='/login' element={<WeddingLogin />}/>
-      <Route  path='/' element={<Hero />}/>
-      <Route  path='/registeration' element={<WeddingRegister/>}/>
-      <Route  path='/userdasboard' element={<UserDasboard/>}/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<CustomerDashboard />} />
+          <Route path="/adminpanel" element={<AdminPanel />} />
+          <Route path="/contact" element={<ContactUs />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+};
 
-    </Routes>
-    </BrowserRouter>
-  )
-}
-
-export default App
+export default App;

@@ -1,18 +1,27 @@
+import jwt from "jsonwebtoken";
+import User from "../models/usermodel.js";
 
+export const Proctect = async (req, res, next) => {
+  try {
+     const token = req.cookies.IDCard;
 
-export const Samp=(req,res,next)=>{
-console.log("i am midddle ware 1");
-console.log(req.url);
-console.log(req.method);
-next()
-
-}
-export const Samp1=(req,res,next)=>{
-console.log("i am midddle ware 2");
-next()
-
-}
-export const Samp2=(req,res,next)=>{
-console.log("i am midddle ware 3"); 
-next()
-}
+  if (!token) {
+    const error = new Error("Unauthorized !! Login Again");
+    error.statusCode = 401;
+    return next(error);
+  }
+  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  const verifiedUser = await User.findById(decode.ID).select("-password");
+  console.log(verifiedUser);
+  
+  if (!verifiedUser) {
+    const error = new Error("Unauthorized !! Login Again");
+    error.statusCode = 401;
+    return next(error);
+  }
+  req.user=verifiedUser;
+  next()
+  } catch (error) {
+    next(error)
+  }
+};
